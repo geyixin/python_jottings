@@ -1,2 +1,2 @@
 # python_jottings
-python相关随笔
+python随笔
