@@ -19,7 +19,7 @@ print('--------------')
 d = pandas.DataFrame([[1,2,3],[4,5,6]],columns=['a','b','c']) 
 # colums是列的标号，不写默认从0开始标
 d2 = pandas.DataFrame(s)
-print(d.head())
+print(d.head())		# 默认输出前五行，也可以自己加数字 head(10),则可输出前十行
 print(d.tail())
 print('--------------')
 '''
@@ -28,8 +28,11 @@ print('--------------')
 1  4  5  6
 '''
 print(d.describe())		# 对d做简约分析，最大值，最小值，均值等等
-p = pandas.read_excel('data.xlsx')
+p = pandas.read_excel('data.xlsx', index_col=u'菜品名称')
+'''
+假如原来数据是三列多行，且”菜品名称“在第二列，那用 index_col=u'菜品名称'，则会把第二列变成第一列，
+即实现以“菜品名称”索引
+'''
 print(p.head(2))	# 打印表格的前两行
-
 ```
 
