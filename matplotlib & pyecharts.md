@@ -1,6 +1,7 @@
 # matplotlib & pyecharts
 
 ## 1. matplotlib 
++ 二维线性图、折线图：plot
 
 ```python3
 import numpy as np
@@ -20,6 +21,21 @@ plt.ylim(-0.1, 2.1)
 plt.legend()
 plt.rcParams['font.sans-serif'] = ['SimHei']    # 可以正常显示中文
 plt.show()
+```
+
++ 饼型图：pie
+
+```python3
+  import matplotlib.pyplot as plt
+  
+  lab = 'A', 'B', 'C', 'D'
+  siz = [15,30,45,10]
+  col = ['yellow', 'green', 'lightskyblue', 'lightcoral']
+  expl = (0, 0.1, 0, 0)    # 突出显示 第二块, 数字越大，越突出
+  plt.pie(siz, explode=expl, labels=lab, colors=col,
+          autopct='%1.1f%%', shadow=True, startangle=90)
+  plt.axis('equal')   # 避免被压缩成椭圆
+  plt.show()
 ```
 
 ## 2. 为了画出一个横坐标，两个纵坐标的图，兼具柱状图和线图，具体分析 pyecharts 和 matplotlib 异同

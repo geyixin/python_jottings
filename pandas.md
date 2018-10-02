@@ -4,6 +4,9 @@
 + Series，就是列，类似一维数组，每个Series都有唯一表头，用来表示不同的Series
 + DataFrame，类似二维表格，每一列都是是个Series
 + Index，是为了定位Series中的元素，类似SQL中的主键，可以是字母、中文等，不一定数字
+### 初级应用
+
+#### Series、DataFrame、index、colums、head、tail、describe、read_excel、index_col等
 
 ```python3
 import pandas
@@ -43,7 +46,7 @@ print(p.head(2))	# 打印表格的前两行
 88  	A9	  1877
 426	    A10	  1782
 原数据中，”菜品名称“在第二列，那用 index_col=u'菜品名称'，则会把第二列变成第一列，
-即实现以“菜品名称”索引
+即实现以“菜品名称”索引，即“菜品名称”不再作为表格中的有效内容，仅作为索引
 data = data[u'盈利'].copy()
 新的data将会只含以“菜品名称”为index，以“盈利”为内容的两列数据：
 print(data.head(15))	# 15只要超过data长度，则会把data全显示
@@ -63,7 +66,10 @@ Name: 盈利, dtype: int64
 '''
 ```
 
-+ cumsum，groupby
+####  cumsum，groupby
+
++ cumsum，依次给出前1、2、。。。、n个数的和
+
 ```python3
 data['sum_Times'] = data['Times'].groupby(['userID']).cumsum()
 原data:				
@@ -90,4 +96,27 @@ data['sum_Times'] = data['Times'].groupby(['userID']).cumsum()
 6   D   5       5
 7   A   6       11
 '''
+```
+
+### 相关系数中的 判定系数法
++ 三种常见的二元变量相关系数分析法：Pearson相关系数、Spearman秩相关系数、判定系数。
++ 正态分布假设下，Pearson和Spearman效率上等价；对于连续测量数据，Spearman更适用。
++ corr：计算数据样本的Spearman（Pearson）相关系数矩阵，data.corr(method='pearson')，支持pearson（皮尔森相关系数，默认选项），kendall（肯德尔系数），spearman（斯皮尔曼系数）。
+
+| 日期      | 百合酱蒸凤爪 | 翡翠蒸香茜饺 | 金银蒜汁蒸排骨 | 乐膳真味鸡 | 蜜汁焗餐包 | 生炒菜心 | 铁板酸菜豆腐 | 香煎韭菜饺 | 香煎罗卜糕 | 原汁原味菜心 |
+| --------- | ------------ | ------------ | -------------- | ---------- | ---------- | -------- | ------------ | ---------- | ---------- | ------------ |
+| 2015/1/1  | 17           | 6            | 8              | 24         | 13         | 13       | 18           | 10         | 10         | 27           |
+| 2015/1/2  | 11           | 15           | 14             | 13         | 9          | 10       | 19           | 13         | 14         | 13           |
+| 2015/1/3  | 10           | 8            | 12             | 13         | 8          | 3        | 7            | 11         | 10         | 9            |
+| 2015/1/4  | 9            | 6            | 6              | 3          | 10         | 9        | 9            | 13         | 14         | 13           |
+| 2015/1/5  | 4            | 10           | 13             | 8          | 12         | 10       | 17           | 11         | 13         | 14           |
+
+```python
+data = 'data.xls'
+data = pd.read_excel(data, index_col = u'日期')
+
+p = data.corr() # 相关系数矩阵，即给出了任意两款菜式之间的相关系数
+q = data.corr()[u'百合酱蒸凤爪'] # 只显示“百合酱蒸凤爪”与其他菜式的相关系数
+r = data[u'百合酱蒸凤爪'].corr(data[u'翡翠蒸香茜饺']) # 计算“百合酱蒸凤爪”与“翡翠蒸香茜饺”的相关系数
+print(p,'\n','-----------','\n',q,'\n','-----------','\n',r)
 ```
