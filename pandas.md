@@ -63,3 +63,31 @@ Name: 盈利, dtype: int64
 '''
 ```
 
++ cumsum，groupby
+```python3
+data['sum_Times'] = data['Times'].groupby(['userID']).cumsum()
+原data:				
+'''
+    ID  Times
+0   A   2
+1   B   1
+2   B   2
+3   C   3
+4   A   3
+5   B   1
+6   D   5
+7   A   6
+'''
+现在data：
+'''
+    ID  Times   sum_Times
+0   A   2       2
+1   B   1       1
+2   B   2       3
+3   C   3       3
+4   A   3       5
+5   B   1       4
+6   D   5       5
+7   A   6       11
+'''
+```
