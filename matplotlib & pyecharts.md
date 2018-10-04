@@ -1,7 +1,6 @@
 # matplotlib & pyecharts
 
-## 1. matplotlib 
-+ 二维线性图、折线图：plot
+### 二维线性图、折线图：plot
 
 ```python3
 import numpy as np
@@ -22,8 +21,7 @@ plt.legend()
 plt.rcParams['font.sans-serif'] = ['SimHei']    # 可以正常显示中文
 plt.show()
 ```
-
-+ 饼型图：pie
+###  饼型图：pie
 
 ```python3
   import matplotlib.pyplot as plt
@@ -38,7 +36,19 @@ plt.show()
   plt.show()
 ```
 
-## 2. 为了画出一个横坐标，两个纵坐标的图，兼具柱状图和线图，具体分析 pyecharts 和 matplotlib 异同
+###  柱状图：hist
+
++ hist(x,y)：x待绘制的一维数组，y为整数时，表示均匀分为y组，y为列表时，表示分组的边界点。
++ ```python3
+  import matplotlib.pyplot as plt
+  
+  x = [-1,-1,-1,0,0,1,2,3,4]
+  y = [-3,-1,1,3]
+  plt.hist(x, y, rwidth=0.8)	# y1<=x<y2，此时是左闭右开，但是在pandas.cut中为左开右闭
+  plt.show()
+  ```
+
+###  通过画出带有一个横坐标，两个纵坐标的图，兼具柱状图和线图，分析pyecharts 和 matplotlib 异同
 
 + 原始在Excel中的数据catering_dish_profit.xls：
 
@@ -55,7 +65,7 @@ plt.show()
   | 88     | A9     | 1877 |
   | 426    | A10    | 1782 |
 
-+ 2.1  matplotlib 处理过程
++  matplotlib 处理过程
 ```python3
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -78,7 +88,7 @@ plt.annotate(format(p[6], '.4%'), xy = (6, p[6]), xytext=(6*0.9, p[6]*0.9), arro
 plt.ylabel(u'盈利（比例）')
 plt.show()
 ```
-+ 2.2  pyecharts 处理过程
++   pyecharts 处理过程
 ```python3
 import pandas as pd
 from pyecharts import Bar, Line, Overlap
@@ -105,3 +115,29 @@ overlap.render('菜品盈利.html')
 ```
 
 + 总结：pyecharts 画出的图显示在HTML中，比matplotlib画出的图更好看。
+###  画柱状图的三种方式
++ pandas：       data.plot(kind='bar')
++ matplotlib：	hist(x,y)
++ pyecharts：	bar = Bar("")
+
+###  箱型图绘制的两种方式
+
++ 直接调用DataFrame的boxplot： data.boxplot() 
++ 调用Series或DataFrame的plot，用kind指定为box：D.plot(kind = 'box')，D为DataFrame格式
+
+### 误差条形图
+
++ D.plot(yerr=err)/D.plot(xerr=err)
+
++ ```python3
+  import matplotlib.pyplot as plt
+  import numpy as np
+  import pandas as pd
+  
+  err = np.random.randn(10)
+  y = pd.Series(np.sin(np.arange(10)))
+  y.plot(yerr=err)	# 显示的是y方向的误差
+  plt.grid()
+  plt.show()
+  ```
+

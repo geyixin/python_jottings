@@ -4,7 +4,7 @@
 + Series，就是列，类似一维数组，每个Series都有唯一表头，用来表示不同的Series
 + DataFrame，类似二维表格，每一列都是是个Series
 + Index，是为了定位Series中的元素，类似SQL中的主键，可以是字母、中文等，不一定数字
-### 初级应用
+### 简单应用
 
 #### Series、DataFrame、index、colums、head、tail、describe、read_excel、index_col等
 
@@ -120,3 +120,4 @@ q = data.corr()[u'百合酱蒸凤爪'] # 只显示“百合酱蒸凤爪”与其
 r = data[u'百合酱蒸凤爪'].corr(data[u'翡翠蒸香茜饺']) # 计算“百合酱蒸凤爪”与“翡翠蒸香茜饺”的相关系数
 print(p,'\n','-----------','\n',q,'\n','-----------','\n',r)
 ```
+
