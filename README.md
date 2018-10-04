@@ -4,5 +4,7 @@
 + pandas
 + matplotlib
 + pyecharts
-
++ functional programming
++ scipy
++ sklearn
 
