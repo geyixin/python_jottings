@@ -7,4 +7,5 @@
 + functional programming
 + scipy
 + sklearn
++ statsmodels
 
