@@ -141,3 +141,31 @@ overlap.render('菜品盈利.html')
   plt.show()
   ```
 
+### map
+
+>```python3
+>from pyecharts import Map
+>
+>value = [155, 10, 66, 78, 33, 80, 190, 53, 49.6]
+>attr = [
+>    "福建", "山东", "北京", "上海", "甘肃", "新疆", "河南", "广西", "西藏"
+>    ]
+>map = Map("Map示例", width=1200, height=600)
+>map.add(
+>    "",
+>    attr,
+>    value,
+>    maptype="china",
+>    is_visualmap=True,
+>    visual_text_color="#000",
+>)
+>map.render()
+>```
+>
+>+ 一般上面的结果显示只有南海诸岛，这怎么行！！！
+>
+>+ 其实呀，是自从 0.3.2 开始，为了缩减项目本身的体积以及维持 pyecharts 项目的轻量化运行，pyecharts 将不再自带地图 js 文件。如用户需要用到地图图表，可自行安装对应的地图文件包。
+>
+>+ >pip install echarts-countries-pypkg
+>  >pip install echarts-china-provinces-pypkg
+>  >pip install echarts-china-cities-pypkg

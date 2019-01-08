@@ -4,9 +4,9 @@
 + Series，就是列，类似一维数组，每个Series都有唯一表头，用来表示不同的Series
 + DataFrame，类似二维表格，每一列都是是个Series
 + Index，是为了定位Series中的元素，类似SQL中的主键，可以是字母、中文等，不一定数字
-### 简单应用
 
-#### Series、DataFrame、index、colums、head、tail、describe、read_excel、index_col等
+
+##  Series、DataFrame、index、colums、head、tail、describe、read_excel、index_col等
 
 ```python3
 import pandas
@@ -66,7 +66,7 @@ Name: 盈利, dtype: int64
 '''
 ```
 
-####  cumsum，groupby
+##  cumsum，groupby
 
 + cumsum，依次给出前1、2、。。。、n个数的和
 
@@ -98,7 +98,7 @@ data['sum_Times'] = data['Times'].groupby(['userID']).cumsum()
 '''
 ```
 
-### 相关系数中的 判定系数法
+##  相关系数中的 判定系数法
 + 三种常见的二元变量相关系数分析法：Pearson相关系数、Spearman秩相关系数、判定系数。
 + 正态分布假设下，Pearson和Spearman效率上等价；对于连续测量数据，Spearman更适用。
 + corr：计算数据样本的Spearman（Pearson）相关系数矩阵，data.corr(method='pearson')，支持pearson（皮尔森相关系数，默认选项），kendall（肯德尔系数），spearman（斯皮尔曼系数）。
@@ -120,4 +120,43 @@ q = data.corr()[u'百合酱蒸凤爪'] # 只显示“百合酱蒸凤爪”与其
 r = data[u'百合酱蒸凤爪'].corr(data[u'翡翠蒸香茜饺']) # 计算“百合酱蒸凤爪”与“翡翠蒸香茜饺”的相关系数
 print(p,'\n','-----------','\n',q,'\n','-----------','\n',r)
 ```
+
+## 根据某一列的某个字段删除该行
+
+>|  ID   |   A    |     B     |  C   |   D   |
+>| :---: | :----: | :-------: | :--: | :---: |
+>| 54993 | 234188 |  580717   | 432  | 5234  |
+>| 28065 |   0    |     0     | 432  |  54   |
+>| 55106 | 164982 |  283712   |  0   |   0   |
+>| 21189 | 125500 |  281336   |  0   | 68578 |
+>| 39546 |   0    |   5646    | 685  |  475  |
+>| 56972 | 76946  |  294585   | 2423 |  432  |
+>| 44924 | 287042 |     0     | 234  |   0   |
+>| 22631 | 287230 | 276335.43 |  43  |  32   |
+>| 32197 | 87401  |  321489   |  41  |  234  |
+>
+>+ 看print输出，感受如何执行的。
+>
+>```python3
+>import pandas as pd
+>
+>data = pd.read_csv('../data/air_data_small.csv', encoding='utf-8')
+>
+>data = data[data['A'].notnull()*data['B'].notnull()]	# 保留非空
+>index1 = data['A'] != 0     # 找到A列不为0
+>index2 = data['B'] != 0     # 找到B列不为0
+>index3 = (data['C'] != 0) & (data['D'] != 0)    # 找到C列和D列同时不为0
+>
+>data = data[index1 & index2 & index3]
+>
+>print(data.head(12))
+>
+>'''
+>      ID       A          B     C     D
+>0  54993  234188  580717.00   432  5234
+>5  56972   76946  294585.00  2423   432
+>7  22631  287230  276335.43    43    32
+>8  32197   87401  321489.00    41   234
+>'''
+>```
 
